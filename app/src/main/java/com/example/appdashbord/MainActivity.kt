@@ -40,7 +40,6 @@ class MainActivity : ComponentActivity() {
             AppDashbordTheme {
                 val navController = rememberNavController()
                 IntroActivity(navController)
-                nav()
             }
         }
     }
@@ -86,10 +85,7 @@ fun IntroActivity(navController: NavController) {
         }
     }
 
-    LaunchedEffect(Unit) {
-        delay(2000L)
-        navController.navigate("B")
-    }
+
 }
 
 
