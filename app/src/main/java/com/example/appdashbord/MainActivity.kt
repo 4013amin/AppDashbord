@@ -243,6 +243,7 @@ fun MyDashboard() {
         profileCard()
         Spacer(modifier = Modifier.height(24.dp))
         Banner()
+        OptionTable()
     }
 }
 
@@ -371,11 +372,84 @@ fun Banner() {
 
             Spacer(modifier = Modifier.weight(1f))
 
-            Image(painter = painterResource(id = R.drawable.logo_banner),
+            Image(
+                painter = painterResource(id = R.drawable.logo_banner),
                 contentDescription = null,
                 modifier = Modifier.size(100.dp)
             )
 
+        }
+    }
+
+}
+
+
+@Composable
+fun OptionTable() {
+    Column {
+        TableRow(
+            icons = listOf(
+                R.drawable.ic_1 to "Index",
+                R.drawable.ic_2 to "Maps",
+                R.drawable.ic_3 to "chat",
+            )
+        )
+
+        TableRow(
+            icons = listOf(
+                R.drawable.ic_4 to "Report",
+                R.drawable.ic_5 to "Calendar",
+                R.drawable.ic_6 to "Tips",
+            )
+        )
+
+        TableRow(
+            icons = listOf(
+                R.drawable.ic_7 to "Settings",
+                R.drawable.ic_8 to "Share",
+                R.drawable.ic_9 to "More",
+            )
+        )
+    }
+}
+
+@Composable
+fun TableRow(icons: List<Pair<Int, String>>) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly
+    ) {
+        icons.forEach { icons ->
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(vertical = 4.dp, horizontal = 8.dp)
+                    .background(color = Color.White, shape = RoundedCornerShape(25.dp))
+                    .height(100.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(8.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Image(
+                        painter = painterResource(icons.first),
+                        contentDescription = null,
+                        modifier = Modifier.size(40.dp)
+                    )
+
+                    Text(
+                        text = icons.second,
+                        modifier = Modifier.padding(top = 8.dp),
+                        style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold),
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
         }
     }
 }
