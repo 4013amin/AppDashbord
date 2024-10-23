@@ -8,12 +8,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
@@ -41,6 +44,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.appdashbord.ui.theme.AppDashbordTheme
@@ -224,19 +228,46 @@ fun LoginScreen() {
 }
 
 @Composable
-fun MyDashboard(){
+fun MyDashboard() {
+    val Scroller = rememberScrollState()
     Column(
         modifier = Modifier
-           .fillMaxSize()
-           .background(color = Color.White)
+            .fillMaxSize()
+            .background(color = Color.White)
+            .verticalScroll(Scroller)
     ) {
-        Text(text = "My Dashboard", fontSize = 24.sp, modifier = Modifier.padding(16.dp))
-        Divider(color = Color.Black, thickness = 1.dp)
-        // Your dashboard components here
+        Spacer(modifier = Modifier.height(24.dp))
+        profileCard()
     }
 }
 
+@Composable
+fun profileCard() {
+    ConstraintLayout(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(292.dp)
+            .background(Color.LightGray)
+    ) {
+        // ایجاد مراجع (references) برای عناصر داخلی
+        val (boxGrey, image, morning, name, favBtn, profileBtn) = createRefs()
 
+        // Box خاکستری
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .constrainAs(boxGrey) {
+                    top.linkTo(parent.top) // لینک به بالای والد
+                    start.linkTo(parent.start) // لینک به چپ والد
+                    end.linkTo(parent.end) // لینک به راست والد
+                }
+                .height(260.dp)
+                .padding(horizontal = 16.dp)
+                .background(colorResource(id = R.color.grey), shape = RoundedCornerShape(25.dp))
+        )
+        //Text
+    }
+}
 
 
 @Preview(showBackground = true)
