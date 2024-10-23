@@ -241,6 +241,8 @@ fun MyDashboard() {
     ) {
         Spacer(modifier = Modifier.height(24.dp))
         profileCard()
+        Spacer(modifier = Modifier.height(24.dp))
+        Banner()
     }
 }
 
@@ -331,6 +333,50 @@ fun profileCard() {
                 bottom.linkTo(boxGrey.bottom)
                 start.linkTo(image.end)
             })
+    }
+}
+
+@Composable
+fun Banner() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(146.dp)
+            .padding(16.dp)
+            .background(
+                colorResource(id = R.color.yellow),
+                shape = RoundedCornerShape(20.dp)
+            )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(start = 16.dp, end = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column {
+                Text(text = "Discover", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(text = "New Arrivals", fontSize = 16.sp)
+
+                Text(
+                    text = "30%", style = TextStyle(
+                        color = colorResource(id = R.color.blue),
+                        fontSize = 34.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                )
+
+            }
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Image(painter = painterResource(id = R.drawable.logo_banner),
+                contentDescription = null,
+                modifier = Modifier.size(100.dp)
+            )
+
+        }
     }
 }
 
