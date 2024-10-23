@@ -1,5 +1,6 @@
 package com.example.appdashbord
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,16 +16,21 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.appdashbord.ui.theme.AppDashbordTheme
+import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +38,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AppDashbordTheme {
-                IntroActivity()
+                val navController = rememberNavController()
+                IntroActivity(navController)
+                nav()
             }
         }
     }
@@ -40,7 +48,7 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun IntroActivity() {
+fun IntroActivity(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -77,6 +85,11 @@ fun IntroActivity() {
             )
         }
     }
+
+    LaunchedEffect(Unit) {
+        delay(2000L)
+        navController.navigate("B")
+    }
 }
 
 
@@ -84,6 +97,6 @@ fun IntroActivity() {
 @Composable
 fun GreetingPreview() {
     AppDashbordTheme {
-        IntroActivity()
+
     }
 }
