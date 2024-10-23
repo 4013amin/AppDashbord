@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
@@ -33,11 +34,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -57,7 +60,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             AppDashbordTheme {
                 val navController = rememberNavController()
-                LoginScreen()
+                MyDashboard()
             }
         }
     }
@@ -266,6 +269,68 @@ fun profileCard() {
                 .background(colorResource(id = R.color.grey), shape = RoundedCornerShape(25.dp))
         )
         //Text
+        Text(
+            text = "Good Morning",
+            style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(32.dp)
+                .constrainAs(morning) {
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    top.linkTo(parent.top)
+                }, textAlign = TextAlign.Center
+
+        )
+
+        Image(
+            painter = painterResource(id = R.drawable.profile),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .padding(start = 32.dp)
+                .width(133.dp)
+                .height(185.dp)
+                .clip(RoundedCornerShape(25.dp))
+                .constrainAs(image) {
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(boxGrey.start)
+                }
+        )
+
+        Text(
+            text = "Sara\n Anderson",
+            style = TextStyle(
+                fontSize = 30.sp,
+                fontWeight = FontWeight.Bold
+            ),
+            modifier = Modifier
+                .padding(start = 16.dp)
+                .constrainAs(name) {
+                    start.linkTo(image.end)
+                    top.linkTo(image.top)
+                }, textAlign = TextAlign.Start
+        )
+
+        Image(
+            painter = painterResource(id = R.drawable.profile_btn),
+            contentDescription = null,
+            modifier = Modifier
+                .padding(end = 48.dp)
+                .constrainAs(profileBtn) {
+                    top.linkTo(boxGrey.bottom)
+                    end.linkTo(boxGrey.end)
+                    bottom.linkTo(boxGrey.bottom)
+                }
+        )
+
+        Image(painter = painterResource(id = R.drawable.fav), contentDescription = null,
+            modifier = Modifier.constrainAs(favBtn) {
+                end.linkTo(profileBtn.start)
+                top.linkTo(boxGrey.bottom)
+                bottom.linkTo(boxGrey.bottom)
+                start.linkTo(image.end)
+            })
     }
 }
 
@@ -274,6 +339,6 @@ fun profileCard() {
 @Composable
 fun GreetingPreview() {
     AppDashbordTheme {
-
+        MyDashboard()
     }
 }
